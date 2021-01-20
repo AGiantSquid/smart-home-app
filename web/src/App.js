@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
+
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
+
+import Header from './Header.js'
+import Lights from './Lights.js'
 
 import './App.css';
 
@@ -30,10 +33,6 @@ function App() {
     });
   }, []);
 
-  const handleChange = (event) => {
-      console.log(event.target.name)
-  };
-
   const handleTempChange = (event, value) => {
     setThermostat({
         ...thermostat,
@@ -47,22 +46,9 @@ function App() {
   }
 
   return (
-    <div className="App">
-        <ul>
-        {
-            lights.map(light => (
-                <li key={light.id}>
-                    <Switch
-                        checked={light.status}
-                        onChange={handleChange}
-                        name={light.id}
-                        inputProps={{ 'aria-label': 'secondary checkbox' }}
-                    />
-                    <span>name: {light.name}</span>
-                </li>
-            ))
-        }
-        </ul>
+      <div className="App">
+        <Header />
+        <Lights />
         <Typography id="discrete-slider-always" gutterBottom>
             Thermostat
         </Typography>
