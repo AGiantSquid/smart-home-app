@@ -11,10 +11,6 @@ import Typography from '@material-ui/core/Typography'
 
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
 
-function handleLightSwitch(event) {
-    console.log(event.target.name)
-}
-
 const useStyles = makeStyles({
     root: {
         display: 'flex',
@@ -29,8 +25,21 @@ const useStyles = makeStyles({
     media: {
         height: 140,
     },
-    light: {
+    lightIcon: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 150,
+    },
+    lightOn: {
         fontSize: 150,
+        color: '#f50057',
+        // backgroundColor: 'black',
+    },
+    lightOff: {
+        fontSize: 100,
+        color: 'black',
+        background: 'white',
     },
 })
 
@@ -65,17 +74,32 @@ function Lights() {
         setName('')
     }
 
+    const handleLightSwitch = event => {
+        const lightId = event.currentTarget.name
+        const filteredLights = lights.reduce((accum, x) => {
+            if (x.id == lightId) {
+                x.status = !x.status
+            }
+            return accum.concat(x)
+        }, [])
+
+        setLights(filteredLights)
+    }
+
     return (
         <div className={classes.root}>
             {lights.map(light => (
-                <Card className={classes.card}>
-                    <CardActionArea>
-                        <CardMedia
-                            className={classes.media}
-                            image="/static/images/cards/contemplative-reptile.jpg"
-                            title="Contemplative Reptile"
-                        />
-                        <EmojiObjectsIcon className={classes.light} />
+                <Card className={classes.card} key={light.id}>
+                    <CardActionArea onClick={handleLightSwitch} name={light.id}>
+                        <div className={classes.lightIcon}>
+                            <EmojiObjectsIcon
+                                className={
+                                    light.status
+                                        ? classes.lightOn
+                                        : classes.lightOff
+                                }
+                            />
+                        </div>
                         <CardContent>
                             <Typography
                                 gutterBottom
@@ -85,13 +109,13 @@ function Lights() {
                                 {light.name}
                             </Typography>
                         </CardContent>
+                        <Switch
+                            checked={light.status}
+                            // onChange={handleLightSwitch}
+                            name={light.id}
+                            inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
                     </CardActionArea>
-                    <Switch
-                        checked={light.status}
-                        onChange={handleLightSwitch}
-                        name={light.id}
-                        inputProps={{ 'aria-label': 'secondary checkbox' }}
-                    />
                 </Card>
             ))}
             <div>
