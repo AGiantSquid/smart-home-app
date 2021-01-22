@@ -54,12 +54,13 @@ const useStyles = makeStyles({
 })
 
 function Lights() {
+    const route = '/lights/'
     const classes = useStyles()
     const [lights, setLights] = useState({})
     const [name, setName] = useState('')
 
     useEffect(() => {
-        fetch('/lights/')
+        fetch(route)
             .then(res => res.json())
             .then(data => {
                 console.log('data', data)
@@ -76,7 +77,7 @@ function Lights() {
         if (name === '') {
             return
         }
-        fetch('/lights/', {
+        fetch(route, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -104,7 +105,7 @@ function Lights() {
             ...lights[lightId],
             status: !lights[lightId].status,
         }
-        fetch('/lights/' + lightId, {
+        fetch(route + lightId, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -125,7 +126,7 @@ function Lights() {
         console.log(event)
         const lightId = event.currentTarget.id
 
-        fetch('/lights/' + lightId, {
+        fetch(route + lightId, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -143,7 +144,12 @@ function Lights() {
                     label="Enter Light Name"
                     onChange={handleChange}
                 />
-                <Button color="primary" variant="contained" onClick={handleAdd}>
+                <Button
+                    disabled={name === ''}
+                    color="primary"
+                    variant="contained"
+                    onClick={handleAdd}
+                >
                     Add
                 </Button>
             </div>
