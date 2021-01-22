@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { CloudUpload, Search, Update } from '@material-ui/icons'
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
 import Lights from './components/Lights'
 import Thermostat from './components/Thermostat'
