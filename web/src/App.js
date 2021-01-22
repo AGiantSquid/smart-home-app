@@ -1,38 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import React from 'react'
 
-import Typography from '@material-ui/core/Typography'
-
-import Header from './Header.js'
-import Lights from './Lights.js'
-import Thermostat from './Thermostat.js'
-
-import './App.css'
-
-const useStyles = makeStyles(theme => ({
-    bodyWrapper: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-    body: {
-        maxWidth: '100%',
-        width: 850,
-        margin: '0 auto',
-        // flexGrow: 1,
-    },
-}))
+import Header from './components/Header.js'
+import Navbar from './components/Navbar'
+import Main from './components/Main'
 
 function App() {
-    const classes = useStyles()
-
     return (
-        <div className="App">
+        <>
             <Header />
-            <div className={classes.body}>
-                <Lights />
-                <Thermostat />
-            </div>
-        </div>
+            <Navbar />
+            <Main />
+        </>
     )
 }
 
